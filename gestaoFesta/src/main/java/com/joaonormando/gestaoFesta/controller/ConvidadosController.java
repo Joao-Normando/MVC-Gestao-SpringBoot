@@ -16,19 +16,17 @@ public class ConvidadosController {
     @Autowired
     private Convidados convidados;
 
-    @GetMapping ("/convidados")
+    @GetMapping
+    public ModelAndView listar() {
+        ModelAndView modelAndView = new ModelAndView("ListaConvidados");
+        modelAndView.addObject("convidados", convidados.findAll());
+        modelAndView.addObject(new Convidado());
+        return modelAndView;
+    }
 
-        public ModelAndView listar () {
-            ModelAndView modelAndView = new ModelAndView("ListaConvidados");
-            modelAndView.addObject("convidados", convidados.findAll());
-
-            return modelAndView;
-        }
-    @PostMapping("/convidados")
+    @PostMapping
     public String salvar(Convidado convidado) {
         this.convidados.save(convidado);
         return "redirect:/convidados";
-
     }
-
 }
