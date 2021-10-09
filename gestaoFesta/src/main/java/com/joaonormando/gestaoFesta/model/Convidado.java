@@ -1,17 +1,17 @@
 package com.joaonormando.gestaoFesta.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 public class Convidado implements Serializable {
     private static long serialVersionUID = 1;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
     private String nome;
 
@@ -47,5 +47,26 @@ public class Convidado implements Serializable {
 
     public void setQuantidadeAcompanhante(Integer quantidadeAcompanhante) {
         this.quantidadeAcompanhantes = quantidadeAcompanhante;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Convidado convidado = (Convidado) o;
+        return id.equals(convidado.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Convidado{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", quantidadeAcompanhantes=" + quantidadeAcompanhantes +
+                '}';
     }
 }
